@@ -20,7 +20,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.pawel.touristapp.placeinformation.DownloadingInformationActivity
 import com.pawel.touristapp.ui.theme.TouristAppTheme
+import com.pawel.touristapp.weather.CheckingWeatherActivity
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -81,10 +83,16 @@ class MainActivity : ComponentActivity() {
     }
 
     private fun checkWeather(location: String){
-
+        val intent = Intent(this, CheckingWeatherActivity::class.java).apply {
+            putExtra("location", location)
+        }
+        startActivity(intent)
     }
 
     private fun downloadInformation(location: String){
-
+        val intent = Intent(this, DownloadingInformationActivity::class.java).apply {
+            putExtra("location", location)
+        }
+        startActivity(intent)
     }
 }
