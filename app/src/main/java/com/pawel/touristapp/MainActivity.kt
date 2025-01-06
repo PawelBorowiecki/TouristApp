@@ -6,8 +6,10 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
@@ -38,37 +40,43 @@ class MainActivity : ComponentActivity() {
     @Composable
     private fun MainScreen(){
         var placeInput by remember { mutableStateOf("") }
-        Column(modifier = Modifier.padding(0.dp, 64.dp)) {
+        Column(
+            verticalArrangement = Arrangement.Center,
+            modifier = Modifier.fillMaxSize()
+            ) {
             TextField(
                 value = placeInput,
                 onValueChange = { placeInput = it },
                 label = { Text("Enter place name") },
                 modifier = Modifier.fillMaxWidth()
             )
-            Spacer(modifier = Modifier.padding(16.dp))
+            Spacer(modifier = Modifier.padding(8.dp))
             Button(
                 onClick = {
                     openMap(placeInput)
                 },
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth(),
+                enabled = placeInput.isNotBlank()
             ) {
                 Text("Find way")
             }
-            Spacer(modifier = Modifier.padding(16.dp))
+            Spacer(modifier = Modifier.padding(8.dp))
             Button(
                 onClick = {
                     checkWeather(placeInput)
                 },
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth(),
+                enabled = placeInput.isNotBlank()
             ) {
                 Text("Check weather and compare with previous searchings")
             }
-            Spacer(modifier = Modifier.padding(16.dp))
+            Spacer(modifier = Modifier.padding(8.dp))
             Button(
                 onClick = {
                     downloadInformation(placeInput)
                 },
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth(),
+                enabled = placeInput.isNotBlank()
             ) {
                 Text("Download information about place")
             }
