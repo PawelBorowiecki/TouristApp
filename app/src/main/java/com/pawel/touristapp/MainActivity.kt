@@ -52,6 +52,24 @@ class MainActivity : ComponentActivity() {
             ) {
                 Text("Find way")
             }
+            Spacer(modifier = Modifier.padding(16.dp))
+            Button(
+                onClick = {
+                    checkWeather(placeInput)
+                },
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text("Check weather and compare with previous searchings")
+            }
+            Spacer(modifier = Modifier.padding(16.dp))
+            Button(
+                onClick = {
+                    downloadInformation(placeInput)
+                },
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text("Download information about place")
+            }
         }
     }
 
@@ -60,5 +78,13 @@ class MainActivity : ComponentActivity() {
             data = Uri.parse("geo:0,0?q=$location")
         }
         startActivity(intent)
+    }
+
+    private fun checkWeather(location: String){
+
+    }
+
+    private fun downloadInformation(location: String){
+
     }
 }
