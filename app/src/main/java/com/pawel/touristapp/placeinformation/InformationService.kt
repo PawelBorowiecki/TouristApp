@@ -11,7 +11,7 @@ import kotlinx.coroutines.withContext
 import okhttp3.OkHttpClient
 import okhttp3.Request
 
-class InformationService(val title: String) : Service() {
+class InformationService(private val title: String) : Service() {
     private val coroutineScope = CoroutineScope(Dispatchers.IO)
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
