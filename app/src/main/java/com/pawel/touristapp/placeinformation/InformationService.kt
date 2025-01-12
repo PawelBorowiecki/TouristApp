@@ -28,7 +28,7 @@ class InformationService(private val title: String) : Service() {
 
     private suspend fun getInformationOkHttpForCoroutine(title: String): String{
         val client = OkHttpClient()
-        val request = Request.Builder().url("https://en.wikipedia.org/$title").build()
+        val request = Request.Builder().url("https://en.wikipedia.org/api/rest_v1/page/summary/$title").build()
         return withContext(Dispatchers.IO){
             try {
                 val response = client.newCall(request).execute()
