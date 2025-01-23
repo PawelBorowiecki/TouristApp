@@ -30,7 +30,7 @@ class DownloadingInformationActivity : ComponentActivity() {
     fun InformationScreen(location: String){
         val context = LocalContext.current
         var downloadedInformation = ""
-        val informationServiceIntent = Intent(context, InformationService(location)::class.java)
+        val informationServiceIntent = Intent(context, InformationService::class.java)
 
         DisposableEffect(Unit) {
             val receiver  = InformationBroadcastReceiver{ newDownloadedInformation ->
