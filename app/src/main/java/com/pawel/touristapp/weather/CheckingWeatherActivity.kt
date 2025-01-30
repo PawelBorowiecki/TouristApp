@@ -3,6 +3,7 @@ package com.pawel.touristapp.weather
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -30,6 +31,7 @@ class CheckingWeatherActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val receivedLocation = intent.getStringExtra("location") ?: ""
+        enableEdgeToEdge()
         setContent {
             WeatherScreen(receivedLocation)
         }
