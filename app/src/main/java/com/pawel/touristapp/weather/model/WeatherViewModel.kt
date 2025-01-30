@@ -19,13 +19,6 @@ class WeatherViewModel : ViewModel() {
         }
     }
 
-    fun addWeather(weather: WeatherData) {
-        viewModelScope.launch {
-            repository.addWeather(weather)
-            getWeathers()
-        }
-    }
-
     fun deleteWeather(id: String) {
         viewModelScope.launch {
             repository.deleteWeather(id)
