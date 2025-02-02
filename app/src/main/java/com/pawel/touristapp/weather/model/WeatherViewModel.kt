@@ -15,7 +15,7 @@ class WeatherViewModel : ViewModel() {
 
     fun getWeathers() {
         viewModelScope.launch {
-            _weatherList.value = repository.getWeathers()
+            _weatherList.value = repository.getWeathers().sortedWith(compareBy { it.date })
         }
     }
 
@@ -33,7 +33,7 @@ class WeatherViewModel : ViewModel() {
                 val weather = WeatherData(
                     city = response.name,
                     temperature = response.main.temp,
-                    description = response.weatherDescription.firstOrNull()?.description ?: "N/A"
+                    description = response.weatherDescription.firstOrNull()?.description ?: "N/A",
                 )
                 repository.addWeather(weather)
                 getWeathers()

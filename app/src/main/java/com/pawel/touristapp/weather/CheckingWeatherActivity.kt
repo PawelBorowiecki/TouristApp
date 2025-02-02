@@ -8,11 +8,10 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
@@ -63,8 +62,9 @@ class CheckingWeatherActivity : ComponentActivity() {
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier.background(Color.Blue)
         ) {
+
             LazyColumn(
-                modifier = Modifier.padding(0.dp, 64.dp, 0.dp, 0.dp)
+                modifier = Modifier.padding(0.dp, 64.dp, 0.dp, 0.dp).fillMaxSize()
             ) {
                 items(weatherList){ weather ->
                     WeatherItem(weather = weather, onDelete = { viewModel.deleteWeather(weather.id) })
@@ -79,9 +79,10 @@ class CheckingWeatherActivity : ComponentActivity() {
         OutlinedCard(
             colors = CardDefaults.cardColors(containerColor = Color.Cyan),
             border = BorderStroke(6.dp, Color.Gray),
-            modifier = Modifier.fillMaxWidth().height(240.dp).padding(8.dp, 4.dp, 8.dp, 4.dp)
+            modifier = Modifier.fillMaxWidth().height(250.dp).padding(8.dp, 4.dp, 8.dp, 4.dp)
         ) {
             Text(text = "City: ${weather.city}", modifier = Modifier.padding(8.dp, 16.dp, 8.dp, 8.dp), color = Color.DarkGray, fontSize = 22.sp, fontWeight = FontWeight.Bold)
+            Text(text = "Date: ${weather.date}", modifier = Modifier.padding(8.dp, 16.dp, 8.dp, 8.dp), color = Color.DarkGray, fontSize = 20.sp, fontWeight = FontWeight.Bold)
             Text(text = "Temperature: ${weather.temperature}°C", modifier = Modifier.padding(8.dp, 16.dp, 8.dp, 8.dp), color = Color.DarkGray, fontSize = 22.sp, fontWeight = FontWeight.Bold)
             Text(text = "Description: ${weather.description}", modifier = Modifier.padding(8.dp, 16.dp, 8.dp, 8.dp), color = Color.DarkGray, fontSize = 22.sp, fontWeight = FontWeight.Bold)
 
