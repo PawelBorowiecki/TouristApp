@@ -15,7 +15,7 @@ class WeatherViewModel : ViewModel() {
 
     fun getWeathers() {
         viewModelScope.launch {
-            _weatherList.value = repository.getWeathers().sortedWith(compareBy { it.date })
+            _weatherList.value = repository.getWeathers().sortedWith(compareBy { it.date }).reversed()
         }
     }
 

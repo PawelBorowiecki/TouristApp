@@ -31,6 +31,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.TileMode
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -93,7 +94,7 @@ class CheckingWeatherActivity : ComponentActivity() {
         OutlinedCard(
             colors = CardDefaults.cardColors(containerColor = Color.Transparent),
             border = BorderStroke(6.dp, Color.Black),
-            modifier = Modifier.fillMaxWidth().height(250.dp).padding(8.dp, 4.dp, 8.dp, 4.dp).background(brush = Brush.radialGradient(colors = listOf(Color.Transparent, Color.White)))
+            modifier = Modifier.fillMaxWidth().height(250.dp).padding(8.dp, 4.dp, 8.dp, 4.dp).background(brush = Brush.radialGradient(colors = listOf(Color.Transparent, Color.White), tileMode = TileMode.Clamp))
         ) {
             Text(text = "City: ${weather.city}", modifier = Modifier.padding(8.dp, 16.dp, 8.dp, 8.dp), color = Color(46, 46, 45), fontSize = 22.sp, fontWeight = FontWeight.Bold)
             Text(text = "Date: ${weather.date}", modifier = Modifier.padding(8.dp, 16.dp, 8.dp, 8.dp), color = Color(46, 46, 45), fontSize = 20.sp, fontWeight = FontWeight.Bold)
