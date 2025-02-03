@@ -8,8 +8,10 @@ import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
+import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresPermission
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
@@ -34,12 +36,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.TileMode
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -62,6 +68,7 @@ class CheckingWeatherActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         val receivedLocation = intent.getStringExtra("location") ?: ""
         enableEdgeToEdge()
+        createNotificationChannel()
         setContent {
             WeatherScreen(receivedLocation)
         }
@@ -111,6 +118,11 @@ class CheckingWeatherActivity : ComponentActivity() {
             cityName = location,
             apiKey = Constants.OPEN_WEATHER_API_KEY
         )
+        NotificationToast(
+            context = LocalContext.current,
+            location = location
+        )
+
         Box(
             modifier = Modifier.fillMaxSize()
         ){
@@ -152,6 +164,20 @@ class CheckingWeatherActivity : ComponentActivity() {
             IconButton(onClick = onDelete) {
                 Icon(imageVector = Icons.Default.Delete, contentDescription = "Delete", tint = Color.Black)
             }
+        }
+    }
+
+    @Composable
+    private fun NotificationToast(context: Context, location: String){
+        var permissionGranted by remember { mutableStateOf(checkNotificationPermission()) }
+        val requestPermissionLauncher = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
+            permissionGranted = isGranted
+        }
+
+        if(permissionGranted){
+            sendNotification(context, location)
+        }else{
+            requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
         }
     }
 }
