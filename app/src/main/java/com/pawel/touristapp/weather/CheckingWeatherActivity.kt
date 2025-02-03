@@ -1,9 +1,16 @@
 package com.pawel.touristapp.weather
 
+import android.Manifest
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.content.Context
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.annotation.RequiresPermission
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -37,18 +44,59 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.pawel.touristapp.R
 import com.pawel.touristapp.weather.model.WeatherData
 import com.pawel.touristapp.weather.model.WeatherViewModel
 
 class CheckingWeatherActivity : ComponentActivity() {
+    companion object{
+        const val CHANNEL_ID = "weather_channel_id"
+        const val NOTIFICATION_ID = 1
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val receivedLocation = intent.getStringExtra("location") ?: ""
         enableEdgeToEdge()
         setContent {
             WeatherScreen(receivedLocation)
+        }
+    }
+
+    private fun createNotificationChannel(){
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            val name = "weather channel"
+            val descriptionText = "Weather notification channel"
+            val importance = NotificationManager.IMPORTANCE_HIGH
+            val channel = NotificationChannel(CHANNEL_ID, name, importance).apply {
+                description = descriptionText
+            }
+            val notificationManager: NotificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            notificationManager.createNotificationChannel(channel)
+        }
+    }
+
+    private fun checkNotificationPermission(): Boolean{
+        return if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU){
+            ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED
+        }else{
+            true
+        }
+    }
+
+    @RequiresPermission(Manifest.permission.POST_NOTIFICATIONS)
+    private fun sendNotification(context: Context, location: String){
+        val builer = NotificationCompat.Builder(context, CHANNEL_ID)
+            .setSmallIcon(R.drawable.weather_activity_notification_icon)
+            .setContentTitle("Saved in database.")
+            .setContentText("Weather in $location has already been saved in database.")
+            .setPriority(NotificationCompat.PRIORITY_HIGH)
+        with(NotificationManagerCompat.from(context)){
+            notify(NOTIFICATION_ID, builer.build())
         }
     }
 
