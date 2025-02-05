@@ -98,7 +98,7 @@ class CheckingWeatherActivity : ComponentActivity() {
     @RequiresPermission(Manifest.permission.POST_NOTIFICATIONS)
     private fun sendNotification(context: Context, location: String){
         val builer = NotificationCompat.Builder(context, CHANNEL_ID)
-            .setSmallIcon(R.drawable.weather_activity_notification_icon)
+            .setSmallIcon(R.drawable.notification_icon)
             .setContentTitle("Saved in database.")
             .setContentText("Weather in $location has already been saved in database.")
             .setPriority(NotificationCompat.PRIORITY_HIGH)
