@@ -26,7 +26,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import com.pawel.touristapp.placeinformation.DownloadingInformationActivity
+import com.pawel.touristapp.placeWebView.PlaceWebViewActivity
 import com.pawel.touristapp.ui.theme.TouristAppTheme
 import com.pawel.touristapp.weather.CheckingWeatherActivity
 
@@ -114,7 +114,7 @@ class MainActivity : ComponentActivity() {
     }
 
     private fun downloadInformation(location: String){
-        val intent = Intent(this, DownloadingInformationActivity::class.java).apply {
+        val intent = Intent(this, PlaceWebViewActivity::class.java).apply {
             putExtra("location", location)
         }
         startActivity(intent)

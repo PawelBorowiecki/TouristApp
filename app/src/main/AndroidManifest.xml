@@ -27,7 +27,7 @@
         </activity>
 
         <activity android:name=".weather.CheckingWeatherActivity" />
-        <activity android:name=".placeinformation.DownloadingInformationActivity" />
+        <activity android:name=".placeWebView.PlaceWebViewActivity" />
     </application>
 
 </manifest>
