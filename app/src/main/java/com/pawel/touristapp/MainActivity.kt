@@ -92,7 +92,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxWidth(),
                     enabled = placeInput.isNotBlank()
                 ) {
-                    Text("Download information about place")
+                    Text("Read information about place")
                 }
             }
         }
