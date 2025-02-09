@@ -2,11 +2,15 @@ package com.pawel.touristapp.placeWebView
 
 import android.content.Intent
 import android.content.IntentFilter
+import android.graphics.Bitmap
 import android.os.Build
 import android.os.Bundle
+import android.webkit.WebResourceError
+import android.webkit.WebResourceRequest
 import android.webkit.WebSettings
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -46,8 +50,15 @@ class PlaceWebViewActivity : ComponentActivity() {
             factory = { ctx ->
                 WebView(ctx).apply {
                     settings.javaScriptEnabled = true
-                    settings.cacheMode = WebSettings.LOAD_NO_CACHE
-                    webViewClient = WebViewClient()
+                    webViewClient = object : WebViewClient(){
+                        override fun onReceivedError(
+                            view: WebView?,
+                            request: WebResourceRequest?,
+                            error: WebResourceError?
+                        ) {
+                            Toast.makeText(this@PlaceWebViewActivity, "Error ocurred.", Toast.LENGTH_SHORT).show()
+                        }
+                    }
                     loadUrl(url)
                     val broadcastIntent = Intent("com.pawel.WEB_BROWSING")
                     sendBroadcast(broadcastIntent)

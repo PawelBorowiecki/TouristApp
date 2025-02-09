@@ -38,7 +38,6 @@ class MainActivity : ComponentActivity() {
             TouristAppTheme {
                 MainScreen()
             }
-            //MainScreen()
         }
     }
 
