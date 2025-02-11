@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
+import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
@@ -25,6 +26,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.pawel.touristapp.placeWebView.PlaceWebViewActivity
 import com.pawel.touristapp.ui.theme.TouristAppTheme
@@ -61,8 +63,9 @@ class MainActivity : ComponentActivity() {
                 TextField(
                     value = placeInput,
                     onValueChange = { placeInput = it },
-                    label = { Text("Enter place name") },
-                    modifier = Modifier.fillMaxWidth()
+                    label = { Text(text = "Enter place name", textAlign = TextAlign.Center, modifier = Modifier.fillMaxWidth()) },
+                    modifier = Modifier.fillMaxWidth(),
+                    textStyle = LocalTextStyle.current.copy(textAlign = TextAlign.Center)
                 )
                 Spacer(modifier = Modifier.padding(8.dp))
                 Button(
