@@ -17,4 +17,5 @@ The app was created as a final project at university subject called “Mobile Ap
 - Deleting entries from Firestore database
 - Reading article from Wikipedia about entered place with WebView
 
+
 ![Screens](https://github.com/user-attachments/assets/d4d02594-8f7d-4761-8aa4-5d65a66326e2)
